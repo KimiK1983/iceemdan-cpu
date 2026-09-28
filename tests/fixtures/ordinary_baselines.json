@@ -1,0 +1,61 @@
+{
+  "reference_sha256": "d697bfb841ab2b099a1961a4575b671ba08867748e5cee63225f55a4be365b3a",
+  "reference_label": "frozen supplied CPU reference, prior to product numerical corrections",
+  "numpy": "2.3.5",
+  "scipy": "1.17.0",
+  "fixture_sha256": "5bb522c9ecd2751ced8bbaaac0f0f4ebd66ceb0c94a7fd509635288d4c4260a3",
+  "shared": {
+    "signal": "sin(0.71*t) + 0.5*sin(0.21*t) + 0.3*sin(0.035*t), t=arange(192.0)",
+    "W": "default_rng(7).normal(size=(4, 192)), supplied in realization order",
+    "trials": 4,
+    "max_imf": 3,
+    "stop_reason": "max_imf",
+    "noise_mode_counts": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "sift_iterations": [
+      [
+        13,
+        19,
+        14,
+        33
+      ],
+      [
+        4,
+        8,
+        8,
+        5
+      ],
+      [
+        3,
+        4,
+        4,
+        3
+      ]
+    ]
+  },
+  "seeded": {
+    "signal": "sin(0.73*t) + 0.3*cos(0.12*t), t=arange(128.0)",
+    "trials": 3,
+    "seed": 42,
+    "max_imf": 2,
+    "stop_reason": "max_imf",
+    "noise_mode_counts": [
+      2,
+      2,
+      2
+    ],
+    "rng_state_after": {
+      "bit_generator": "PCG64",
+      "state": {
+        "state": 251617538677702977840310400179998968910,
+        "inc": 332724090758049132448979897138935081983
+      },
+      "has_uint32": 0,
+      "uinteger": 0
+    }
+  }
+}

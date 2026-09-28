@@ -1,0 +1,11 @@
+# Method and numerical contracts
+
+This implementation follows the ICEEMDAN recurrence described by Colominas et al., *Biomedical Signal Processing and Control* (2014), DOI [10.1016/j.bspc.2014.06.009](https://doi.org/10.1016/j.bspc.2014.06.009). The [authors' MATLAB code](https://zenodo.org/records/5580793) is a reference for the method, but this is an independently packaged Python CPU implementation with its own EMD kernel and random-number generator.
+
+For an input `x`, each ensemble member adds scaled noise, extracts the first EMD mode, and contributes to the next local mean. The difference between successive residues is a component. The final returned row is the residue, so `parts.sum(axis=0)` reconstructs `x` to floating-point precision. `get_imfs_and_residue()` separates those rows after a run. The module exposes `EMD` and `CEEMDAN` for compatibility; `ICEEMDAN` is the primary entry point.
+
+The default EMD uses discrete extrema, mirrored endpoint points, cubic envelopes, and Rilling stopping. The implementation raises an explicit convergence error if a required sifting step reaches its iteration ceiling. Natural termination includes too few extrema or a numerical zero. `diagnostics_` records the stop reason and extraction details. A fixed seed makes a run repeatable within a compatible Python/NumPy/SciPy environment; it does not match MATLAB's noise samples.
+
+`trials` controls the ensemble size; `epsilon` is the nonnegative noise scale (default `0.2`); `seed` initializes the random generator; `max_imf` caps extracted components. Optional `range_thr` and `total_power_thr` are additional stopping thresholds. `parallel=True` parallelizes ensemble work via spawned processes and requires an importable `__main__` guard. The 500-run reproducibility script uses `parallel=False` for every decomposition and parallelizes independent runs only when `--workers > 1`.
+
+The tests cover input and backend contracts, numerical edge cases, decomposition limits, seeded and shared-noise ordinary cases, and reconstruction. The saved synthetic oracle fixture records the frozen reference SHA-256 and environment. These checks establish behavior of this Python package; they do not establish equality to unpublished MATLAB realizations or identify biomedical sources.
