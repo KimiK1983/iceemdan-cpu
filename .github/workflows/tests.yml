@@ -25,3 +25,5 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: python -m pip install . pytest
       - run: python -m pytest -q
+      - name: Installed example outside checkout
+        run: python -c "import pathlib, subprocess, sys, tempfile; subprocess.run([sys.executable, str(pathlib.Path('scripts/installed_smoke.py').resolve())], cwd=tempfile.mkdtemp(), check=True)"

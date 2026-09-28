@@ -1,0 +1,27 @@
+{
+  "attempts": 500,
+  "successes": 500,
+  "failures": 0,
+  "by_I": {
+    "50": {
+      "attempts": 100,
+      "mean_rrse_fast": 0.0787606941726412
+    },
+    "100": {
+      "attempts": 100,
+      "mean_rrse_fast": 0.07666411535577773
+    },
+    "200": {
+      "attempts": 100,
+      "mean_rrse_fast": 0.07577023822679994
+    },
+    "400": {
+      "attempts": 100,
+      "mean_rrse_fast": 0.07534174896069903
+    },
+    "800": {
+      "attempts": 100,
+      "mean_rrse_fast": 0.07508703639785026
+    }
+  }
+}

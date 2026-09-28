@@ -1,6 +1,7 @@
 """Analyze two candidate Keele EGG windows; data and outputs stay local."""
 
 import argparse
+import hashlib
 import io
 import json
 import wave
@@ -9,7 +10,9 @@ from pathlib import Path
 
 import numpy as np
 
-from ICEEMDAN import ICEEMDAN
+import ICEEMDAN as module
+from ICEEMDAN import ICEEMDAN as Model
+from scripts.fetch_public_data import SOURCES, verify
 
 ROOT = Path(__file__).resolve().parents[1]
 WINDOWS = (("fig8", 17.275, 0.180), ("fig10", 25.925, 0.100))
@@ -27,6 +30,8 @@ def main():
         parser.error("trials must be positive")
     if not args.archive.is_file():
         parser.error(f"missing {args.archive}; run scripts.fetch_public_data keele")
+    archive_sha256 = verify(args.archive, "keele")
+    module_sha256 = hashlib.sha256(Path(module.__file__).read_bytes()).hexdigest()
     args.out.mkdir(parents=True, exist_ok=True)
     results = []
     with (
@@ -44,11 +49,15 @@ def main():
             if len(x) != round(duration_s * fs):
                 raise ValueError(f"incomplete window: {label}")
             t = np.arange(len(x)) / fs
-            model = ICEEMDAN(trials=args.trials, epsilon=0.2, seed=0)
+            model = Model(trials=args.trials, epsilon=0.2, seed=0)
             parts = model(x, T=t)
             row = {
                 "window": label,
                 "source_record": RECORD,
+                "source_identification": "candidate from earlier visual matching; unconfirmed",
+                "archive_url": SOURCES["keele"]["url"],
+                "archive_sha256": archive_sha256,
+                "module_sha256": module_sha256,
                 "start_s": start_s,
                 "duration_s": duration_s,
                 "sample_rate_hz": fs,

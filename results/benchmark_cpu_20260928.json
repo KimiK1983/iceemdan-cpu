@@ -1,0 +1,148 @@
+{
+  "utc": "2026-09-28T18:06:37.557456+00:00",
+  "protocol": "one warmup and three timed full serial decompositions per I by default; model construction inside timer",
+  "sizes": [
+    50,
+    100,
+    200,
+    400,
+    800
+  ],
+  "warmup": 1,
+  "repeats": 3,
+  "epsilon": 0.2,
+  "seed": 0,
+  "signal_sha256": "ea8c1d1fd62d804d1236abe4782a089522e899902a047ba433e9b31bcab35122",
+  "module_sha256": "2de7564f9f01560ff1d3b1d87af12e88e34b3647152616dce5d2e90c926b695f",
+  "script_sha256": "d41767d6bc7b4f0555e36d04b60a80979ba187786f476b2dddb2516b0a125548",
+  "environment": {
+    "python": "3.13.3",
+    "numpy": "2.2.5",
+    "scipy": "1.15.3",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+    "cpu_count": 24
+  },
+  "results": [
+    {
+      "I": 50,
+      "warmup_s": [
+        3.1082612000000154
+      ],
+      "samples_s": [
+        3.3329585999999836,
+        4.029769599999781,
+        3.84936209999978
+      ],
+      "median_s": 3.84936209999978,
+      "min_s": 3.3329585999999836,
+      "max_s": 4.029769599999781,
+      "output_sha256": [
+        "e9948c869da7e805abbdad7cfe51baf5db3050193c2bbae54d464725161702ea",
+        "e9948c869da7e805abbdad7cfe51baf5db3050193c2bbae54d464725161702ea",
+        "e9948c869da7e805abbdad7cfe51baf5db3050193c2bbae54d464725161702ea"
+      ],
+      "stop_reason": [
+        "residue_is_imf",
+        "residue_is_imf",
+        "residue_is_imf"
+      ]
+    },
+    {
+      "I": 100,
+      "warmup_s": [
+        6.719777100000101
+      ],
+      "samples_s": [
+        5.726875499999551,
+        7.015518400000474,
+        6.112320100000034
+      ],
+      "median_s": 6.112320100000034,
+      "min_s": 5.726875499999551,
+      "max_s": 7.015518400000474,
+      "output_sha256": [
+        "a2d320ccba297f7b85c28ac74f2a3ce511660a3925e8a41508e37d31058d36ae",
+        "a2d320ccba297f7b85c28ac74f2a3ce511660a3925e8a41508e37d31058d36ae",
+        "a2d320ccba297f7b85c28ac74f2a3ce511660a3925e8a41508e37d31058d36ae"
+      ],
+      "stop_reason": [
+        "residue_is_imf",
+        "residue_is_imf",
+        "residue_is_imf"
+      ]
+    },
+    {
+      "I": 200,
+      "warmup_s": [
+        13.275752000000466
+      ],
+      "samples_s": [
+        12.766094599999633,
+        11.812234699999863,
+        12.802888799999891
+      ],
+      "median_s": 12.766094599999633,
+      "min_s": 11.812234699999863,
+      "max_s": 12.802888799999891,
+      "output_sha256": [
+        "1e3aa11a0df7c3e4596d917dea7055fca42227126c589d9408165f0f62ffad21",
+        "1e3aa11a0df7c3e4596d917dea7055fca42227126c589d9408165f0f62ffad21",
+        "1e3aa11a0df7c3e4596d917dea7055fca42227126c589d9408165f0f62ffad21"
+      ],
+      "stop_reason": [
+        "residue_is_imf",
+        "residue_is_imf",
+        "residue_is_imf"
+      ]
+    },
+    {
+      "I": 400,
+      "warmup_s": [
+        25.6613868000004
+      ],
+      "samples_s": [
+        24.302770299999793,
+        26.965369499999724,
+        23.609698900000694
+      ],
+      "median_s": 24.302770299999793,
+      "min_s": 23.609698900000694,
+      "max_s": 26.965369499999724,
+      "output_sha256": [
+        "f68efe4d93404bcfa5442be54a6af7d90901d30c155231c14f2dd06a02179005",
+        "f68efe4d93404bcfa5442be54a6af7d90901d30c155231c14f2dd06a02179005",
+        "f68efe4d93404bcfa5442be54a6af7d90901d30c155231c14f2dd06a02179005"
+      ],
+      "stop_reason": [
+        "residue_is_imf",
+        "residue_is_imf",
+        "residue_is_imf"
+      ]
+    },
+    {
+      "I": 800,
+      "warmup_s": [
+        46.358978400000524
+      ],
+      "samples_s": [
+        46.60178939999969,
+        51.920272500000465,
+        58.764170399999784
+      ],
+      "median_s": 51.920272500000465,
+      "min_s": 46.60178939999969,
+      "max_s": 58.764170399999784,
+      "output_sha256": [
+        "6b80f6520b59df8597c8bf92683101ca461dce5ea041b86afaac8b728241593c",
+        "6b80f6520b59df8597c8bf92683101ca461dce5ea041b86afaac8b728241593c",
+        "6b80f6520b59df8597c8bf92683101ca461dce5ea041b86afaac8b728241593c"
+      ],
+      "stop_reason": [
+        "residue_is_imf",
+        "residue_is_imf",
+        "residue_is_imf"
+      ]
+    }
+  ]
+}

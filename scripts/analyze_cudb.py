@@ -1,13 +1,16 @@
 """Analyze a candidate CUDB ECG window; the paper does not identify a record."""
 
 import argparse
+import hashlib
 import json
 import zipfile
 from pathlib import Path
 
 import numpy as np
 
-from ICEEMDAN import ICEEMDAN
+import ICEEMDAN as module
+from ICEEMDAN import ICEEMDAN as Model
+from scripts.fetch_public_data import SOURCES, verify
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -65,6 +68,8 @@ def main():
         parser.error("trials and duration must be positive; start nonnegative")
     if not args.archive.is_file():
         parser.error(f"missing {args.archive}; run scripts.fetch_public_data cudb")
+    archive_sha256 = verify(args.archive, "cudb")
+    module_sha256 = hashlib.sha256(Path(module.__file__).read_bytes()).hexdigest()
     with zipfile.ZipFile(args.archive) as archive:
         names = {Path(name).name: name for name in archive.namelist()}
         header = archive.read(names["cu01.hea"]).decode("ascii").splitlines()[0].split()
@@ -77,11 +82,14 @@ def main():
     if len(x) != length:
         raise ValueError("requested window extends past record")
     t = np.arange(len(x)) / fs
-    model = ICEEMDAN(trials=args.trials, epsilon=0.2, seed=0)
+    model = Model(trials=args.trials, epsilon=0.2, seed=0)
     parts = model(x, T=t)
     row = {
         "candidate_record": "cu01",
         "source_identification": "hypothesis; paper record unspecified",
+        "archive_url": SOURCES["cudb"]["url"],
+        "archive_sha256": archive_sha256,
+        "module_sha256": module_sha256,
         "start_s": args.start,
         "duration_s": args.duration,
         "sample_rate_hz": fs,

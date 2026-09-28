@@ -35,21 +35,45 @@ See [method and numerical contracts](docs/METHOD.md) for the algorithm, stopping
 
 The [paper reproducibility map](docs/PAPER_REPRODUCIBILITY.md) distinguishes exact code contracts, Python approximations, candidate public-data matches, and unidentified sources for figures 1–15. It does not claim numerical equality with the authors' MATLAB implementation.
 
-Small standalone tests use an original synthetic fixture captured from a frozen reference. Run `python -m pytest -q`. The 500-run synthetic sweep and serial timing benchmark are deliberately opt-in:
+Small standalone tests use an original synthetic fixture captured from a frozen reference. Run `python -m pytest -q`. The full synthetic experiment completed on Python 3.13.3, NumPy 2.2.5 and SciPy 1.15.3: **500/500 successful runs**, 100 seeds per ensemble size, `epsilon=0.2`. Twelve independent workers were used; each decomposition ran serially. The implementation SHA-256 was `2de7564f9f01560ff1d3b1d87af12e88e34b3647152616dce5d2e90c926b695f`.
+
+![ICEEMDAN synthetic sweep distributions](assets/synthetic_sweep.svg)
+
+| I | Mean first-component RRSE | Mean first-residue RRSE | Mean left-side energy | Max reconstruction RRSE |
+|---:|---:|---:|---:|---:|
+| 50 | 0.078761 | 0.039302 | 2.878e-5 | 8.14e-17 |
+| 100 | 0.076664 | 0.038255 | 1.728e-5 | 8.22e-17 |
+| 200 | 0.075770 | 0.037809 | 1.272e-5 | 8.09e-17 |
+| 400 | 0.075342 | 0.037595 | 1.005e-5 | 8.04e-17 |
+| 800 | 0.075087 | 0.037468 | 8.646e-6 | 8.09e-17 |
+
+The chart is generated exclusively from the [500 ordered rows](results/synthetic_20260928/rows.jsonl); see the [manifest](results/synthetic_20260928/manifest.json) and [validated analysis](results/synthetic_20260928/analysis.json). RRSE compares with the two known synthetic components; the left-side interval contains no true fast component. These results cover the **ICEEMDAN arm only** and do not establish equality with the authors' MATLAB draws.
+
+The separate [serial CPU benchmark](results/benchmark_cpu_20260928.json) used one warmup and three complete timed decompositions per size, with model construction inside each timer, after the worker pool had exited. It ran on Windows 11 with an Intel64 Family 6 Model 198 CPU and 24 logical processors in the same Python/NumPy/SciPy environment.
+
+| I | Median seconds | Minimum–maximum seconds |
+|---:|---:|---:|
+| 50 | 3.849 | 3.333–4.030 |
+| 100 | 6.112 | 5.727–7.016 |
+| 200 | 12.766 | 11.812–12.803 |
+| 400 | 24.303 | 23.610–26.965 |
+| 800 | 51.920 | 46.602–58.764 |
+
+Both long scripts require `--run`; without it they print the plan:
 
 ```bash
 python -m scripts.run_synthetic_sweep                       # plan only
-python -m scripts.run_synthetic_sweep --workers 4 --run       # 500 runs
+python -m scripts.run_synthetic_sweep --workers 4 --run       # 500 runs in ignored outputs/
 python -m scripts.run_synthetic_sweep --workers 4 --run --resume
 python -m scripts.benchmark_cpu                               # plan only
 python -m scripts.benchmark_cpu --run                          # full timings
 ```
 
-The sweep uses the signal and five ensemble sizes from the paper comparison, with 100 numbered seeds at each size. Independent decompositions can run in separate processes with `--workers` (1–12); each decomposition itself stays serial, and JSONL rows remain in size/seed order. Manifests record versions, parameters, hashes, timing, failures, and environment details. A resumed run requires the same manifest configuration and script. [Current execution status](docs/IMPLEMENTATION_STATUS.md).
+The sweep uses the signal and five ensemble sizes from the paper comparison. `--workers` accepts 1–12. JSONL rows remain in size/seed order, and resumption requires the same manifest configuration and script. [Execution status](docs/IMPLEMENTATION_STATUS.md).
 
 ## Public recordings
 
-Optional scripts fetch **versioned** source archives into ignored `data/` and write analysis only under ignored `outputs/`:
+Optional scripts fetch **versioned** source archives into ignored `data/` and write local arrays only under ignored `outputs/`:
 
 ```bash
 python -m scripts.fetch_public_data keele
@@ -59,6 +83,8 @@ python -m scripts.analyze_cudb --save-local-arrays
 ```
 
 The [Keele Zenodo record](https://zenodo.org/records/3921794) states noncommercial use for the corpus. The [CUDB PhysioNet record](https://physionet.org/content/cudb/1.0.0/) provides its own attribution license and citation instructions. Review those terms before use. The ECG `cu01` window is a **candidate**, since the paper does not identify the record. The scripts do not establish clinical validity.
+
+The published JSON contains metrics and source provenance only: [Keele windows](results/public_data_20260928/keele/metrics.json) at 17.275–17.455 s and 25.925–26.025 s, with 9 and 8 components, and [CUDB `cu01`](results/public_data_20260928/cudb/metrics.json) at 206–222 s, with 10 components and a VFON annotation at 214.184 s. Each used 100 trials, `epsilon=0.2`, seed 0. These are candidate visual correspondences, not confirmed source identities or clinical validation.
 
 An optional Python method comparison uses `EMD-signal` (`PyEMD`) only when running `python -m scripts.compare_python_methods`; it is not required to import or run `ICEEMDAN`.
 

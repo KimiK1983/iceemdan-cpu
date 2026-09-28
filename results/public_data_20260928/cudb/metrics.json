@@ -1,0 +1,19 @@
+{
+  "candidate_record": "cu01",
+  "source_identification": "hypothesis; paper record unspecified",
+  "archive_url": "https://physionet.org/content/cudb/get-zip/1.0.0/",
+  "archive_sha256": "d33e0e68395c608d8c171d252f6b9fc79d758e868dad15954af4c16553163ade",
+  "module_sha256": "2de7564f9f01560ff1d3b1d87af12e88e34b3647152616dce5d2e90c926b695f",
+  "start_s": 206.0,
+  "duration_s": 16.0,
+  "sample_rate_hz": 250,
+  "vf_onsets_s": [
+    214.184
+  ],
+  "trials": 100,
+  "epsilon": 0.2,
+  "seed": 0,
+  "components": 10,
+  "stop_reason": "fewer_than_three_extrema",
+  "reconstruction_linf": 2.2737367544323206e-13
+}
