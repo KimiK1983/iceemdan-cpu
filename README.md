@@ -6,7 +6,7 @@
 
 An importable, CPU-only implementation of **Improved Complete Ensemble Empirical Mode Decomposition with Adaptive Noise** (ICEEMDAN). It uses NumPy and SciPy; PyEMD is not a runtime dependency. This repository contains the wrapper and its original synthetic checks. It does not contain biomedical recordings or paper images.
 
-[Install and use](#install-and-use) · [Reproducibility](#reproducibility) · [Public recordings](#public-recordings) · [License](#license) · [Español](README.es.md)
+[Install and use](#install-and-use) · [Reproducibility](#reproducibility) · [Public recordings](#public-recordings) · [License](#license-and-attribution) · [Español](README.es.md)
 
 ![Original synthetic ICEEMDAN example](assets/synthetic_decomposition.svg)
 
