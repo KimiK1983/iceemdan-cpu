@@ -1,10 +1,16 @@
 # ICEEMDAN CPU
 
+[![Pruebas](https://github.com/KimiK1983/iceemdan-cpu/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/KimiK1983/iceemdan-cpu/actions/workflows/tests.yml)
+[![Python 3.10–3.13 probado](https://img.shields.io/badge/Python-3.10--3.13%20tested-3776AB)](https://github.com/KimiK1983/iceemdan-cpu/actions/workflows/tests.yml)
+[![Licencia: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue)](LICENSE)
+
 Implementación importable de **Improved Complete Ensemble Empirical Mode Decomposition with Adaptive Noise** para CPU. Solo necesita NumPy y SciPy en tiempo de ejecución; PyEMD es opcional para una comparación aparte. El repositorio no distribuye registros biomédicos ni imágenes del artículo.
+
+[Instalación y uso](#instalación-y-uso) · [Reproducibilidad](#reproducibilidad) · [Datos públicos](#datos-públicos-opcionales) · [Licencia](#licencia) · [English](README.md)
 
 ![Ejemplo sintético original](assets/synthetic_decomposition.svg)
 
-La señal de la figura se genera en `scripts/make_synthetic_figure.py`. [English README](README.md).
+*Descomposición ilustrativa de cuatro realizaciones, generada por [`scripts/make_synthetic_figure.py`](scripts/make_synthetic_figure.py). Es una gráfica sintética propia, no una figura del artículo ni de un registro clínico.*
 
 ## Instalación y uso
 
@@ -14,7 +20,7 @@ Requiere Python 3.10 o posterior:
 python -m pip install .
 ```
 
-Cuando se publiquen el repositorio público y la etiqueta `v2.0.0`, podrá instalarse directamente desde GitHub:
+Instale la versión publicada `v2.0.0` directamente desde GitHub:
 
 ```bash
 python -m pip install "git+https://github.com/KimiK1983/iceemdan-cpu.git@v2.0.0"
@@ -44,6 +50,8 @@ El [mapa de reproducibilidad](docs/PAPER_REPRODUCIBILITY.md) separa los contrato
 Para pruebas breves: `python -m pytest -q`. El experimento sintético completo terminó con **500/500 corridas correctas**, 100 semillas por tamaño y `epsilon=0.2`, usando Python 3.13.3, NumPy 2.2.5 y SciPy 1.15.3. Se distribuyeron corridas independientes entre 12 procesos; cada descomposición fue serial. El SHA-256 del módulo fue `2de7564f9f01560ff1d3b1d87af12e88e34b3647152616dce5d2e90c926b695f`.
 
 ![Distribuciones del barrido sintético](assets/synthetic_sweep.svg)
+
+*RRSE de la primera componente y energía fuera del intervalo de la señal rápida, calculados con las 500 corridas enlazadas abajo. Cada caja representa 100 semillas de un tamaño de ensemble.*
 
 | I | RRSE medio primera componente | RRSE medio primer residuo | Energía media a la izquierda | RRSE máximo de reconstrucción |
 |---:|---:|---:|---:|---:|
