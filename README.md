@@ -14,6 +14,12 @@ Requires Python 3.10 or newer:
 python -m pip install .
 ```
 
+Once the public repository and `v2.0.0` tag are published, install directly from GitHub:
+
+```bash
+python -m pip install "git+https://github.com/KimiK1983/iceemdan-cpu.git@v2.0.0"
+```
+
 ```python
 import numpy as np
 from ICEEMDAN import ICEEMDAN
@@ -49,7 +55,7 @@ Small standalone tests use an original synthetic fixture captured from a frozen 
 
 The chart is generated exclusively from the [500 ordered rows](results/synthetic_20260928/rows.jsonl); see the [manifest](results/synthetic_20260928/manifest.json) and [validated analysis](results/synthetic_20260928/analysis.json). RRSE compares with the two known synthetic components; the left-side interval contains no true fast component. These results cover the **ICEEMDAN arm only** and do not establish equality with the authors' MATLAB draws.
 
-The separate [serial CPU benchmark](results/benchmark_cpu_20260928.json) used one warmup and three complete timed decompositions per size, with model construction inside each timer, after the worker pool had exited. It ran on Windows 11 with an Intel64 Family 6 Model 198 CPU and 24 logical processors in the same Python/NumPy/SciPy environment.
+The separate [serial CPU benchmark](results/benchmark_cpu_20260928.json) used one warmup and three complete timed decompositions per size, with model construction inside each timer, after the worker pool had exited. It ran on Windows 11 with an Intel Core Ultra 9 275HX and 24 logical processors in the same Python/NumPy/SciPy environment.
 
 | I | Median seconds | Minimum–maximum seconds |
 |---:|---:|---:|
@@ -69,7 +75,7 @@ python -m scripts.benchmark_cpu                               # plan only
 python -m scripts.benchmark_cpu --run                          # full timings
 ```
 
-The sweep uses the signal and five ensemble sizes from the paper comparison. `--workers` accepts 1–12. JSONL rows remain in size/seed order, and resumption requires the same manifest configuration and script. [Execution status](docs/IMPLEMENTATION_STATUS.md).
+The sweep uses the signal and five ensemble sizes from the paper comparison. `--workers` accepts 1–12. JSONL rows remain in size/seed order, and resumption requires the same manifest configuration and script. [Local validation evidence](docs/IMPLEMENTATION_STATUS.md).
 
 ## Public recordings
 

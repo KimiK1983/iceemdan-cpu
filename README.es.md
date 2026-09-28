@@ -14,6 +14,12 @@ Requiere Python 3.10 o posterior:
 python -m pip install .
 ```
 
+Cuando se publiquen el repositorio público y la etiqueta `v2.0.0`, podrá instalarse directamente desde GitHub:
+
+```bash
+python -m pip install "git+https://github.com/KimiK1983/iceemdan-cpu.git@v2.0.0"
+```
+
 ```python
 import numpy as np
 from ICEEMDAN import ICEEMDAN
@@ -49,7 +55,7 @@ Para pruebas breves: `python -m pytest -q`. El experimento sintético completo t
 
 La gráfica procede únicamente de las [500 filas ordenadas](results/synthetic_20260928/rows.jsonl). Están disponibles el [manifiesto](results/synthetic_20260928/manifest.json) y el [análisis validado](results/synthetic_20260928/analysis.json). El RRSE se compara con las dos componentes sintéticas conocidas; la región izquierda no contiene la componente rápida verdadera. Estos resultados cubren **solo el brazo ICEEMDAN** y no demuestran igualdad con las realizaciones MATLAB de los autores.
 
-El [benchmark serial de CPU](results/benchmark_cpu_20260928.json) se ejecutó después de cerrar los procesos del barrido: una preparación y tres descomposiciones completas cronometradas por tamaño, incluida la construcción del modelo. Equipo: Windows 11, CPU Intel64 Family 6 Model 198, 24 procesadores lógicos, con las versiones anteriores.
+El [benchmark serial de CPU](results/benchmark_cpu_20260928.json) se ejecutó después de cerrar los procesos del barrido: una preparación y tres descomposiciones completas cronometradas por tamaño, incluida la construcción del modelo. Equipo: Windows 11, Intel Core Ultra 9 275HX, 24 procesadores lógicos, con las versiones anteriores.
 
 | I | Mediana (s) | Mínimo–máximo (s) |
 |---:|---:|---:|
@@ -69,7 +75,7 @@ python -m scripts.benchmark_cpu                               # solo muestra el 
 python -m scripts.benchmark_cpu --run                          # mediciones completas
 ```
 
-`--workers` admite 1–12. El archivo JSONL conserva el orden de tamaño y semilla. Reanudar requiere el mismo manifiesto y script. Consulte el [estado de ejecución](docs/IMPLEMENTATION_STATUS.md).
+`--workers` admite 1–12. El archivo JSONL conserva el orden de tamaño y semilla. Reanudar requiere el mismo manifiesto y script. Consulte la [evidencia de validación local](docs/IMPLEMENTATION_STATUS.md).
 
 ## Datos públicos opcionales
 
